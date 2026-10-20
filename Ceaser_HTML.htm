@@ -109,7 +109,7 @@
             let originalMessage = originalInput.value;
 
             originalInput.addEventListener("input", characterEntered, false);
-            shiftInput.addEventListener("Input", numberEntered, false);
+            shiftInput.addEventListener("input", numberEntered, false);
 
 
             function characterEntered(e) {
@@ -120,6 +120,10 @@
 
                 e.target.value = originalMessage;
 
+                startEncryption();
+            }
+
+            function numberEntered(e){
                 startEncryption();
             }
             
