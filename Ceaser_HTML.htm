@@ -62,7 +62,7 @@
             #encrypted {
                 border-color: var(--primary);
                 background-color: var(--white);
-                color: var(--white);
+                color: var(--dark);
             }
 
             .mainContainer {
@@ -74,13 +74,7 @@
                 border: 1px solid var(--primary);
             }
 
-            .gear img {
-                width: 50px;
-                display: block;
-                margin: 0 auto;
-                margin-top: 50px;
-
-            }
+           
 
         </style>
 
@@ -88,15 +82,15 @@
     </head>
 
     <body>
-        <div>
-            class="mainContainer"
+        <div class="mainContainer">
+            
             <h1>Ceasar's Cipher</h1>
 
             <label for="Original">Message For Encryption</label>
-            <input id="Original" type="text" value="pizzapizzapizza">
+            <input id="Original" type="text" value="">
 
             <label for="Shift">Shift</label>
-            <input id="Shift">
+            <input id="Shift" type="text" value="2" placeholder="0">
             
             <hr>
 
@@ -104,9 +98,7 @@
             <input id="Encrypted" type="text" value="" readonly>
 
 
-            <a class="gear">
-                <img src="/Users/karlsaccount/Ceaser_Cipher/Gear.jpeg" width="200" height="200">
-            </a>
+            
         </div>
 
         <script>
@@ -117,6 +109,8 @@
             let originalMessage = originalInput.value;
 
             originalInput.addEventListener("input", characterEntered, false);
+            shiftInput.addEventListener("Input", numberEntered, false);
+
 
             function characterEntered(e) {
                 // only accept lowercase letters
@@ -131,13 +125,18 @@
             
 
             function startEncryption(){
-                let shift = 1;
+                
                 let encryptedMessage = "";
+                let shift = shiftInput.value ? Number(shiftInput.value) : 0;
 
                 for (letter of originalMessage){
                     encryptedMessage += shiftLetter(letter, shift);
                 }
+
+
                 console.log(encryptedMessage);
+                encryptedInput.value = encryptedMessage;
+
             }
 
             startEncryption();
@@ -145,7 +144,7 @@
             function shiftLetter(letter, shift){
                 let newLetter = "";
                 let letterCode = letter.charCodeAt(0);
-                let newLetterCode = letterCode + shift;
+                let newLetterCode = letterCode + (shift % 26);
 
                 if (newLetterCode < 97) {
                     newLetterCode += 26;
